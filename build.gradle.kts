@@ -47,6 +47,9 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
 
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("com.github.ben-manes.caffeine:caffeine")
+
     kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
 }
 
