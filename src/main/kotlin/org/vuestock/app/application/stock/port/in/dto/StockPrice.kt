@@ -14,7 +14,9 @@ data class StockPrice(
     // 시간
     val time: String?,
     // 날짜
-    val date: String?
+    val date: String?,
+    // 시간 + 날짜의 time mills
+    val timeMills: Long?
 ) {
     companion object {
         fun empty(): StockPrice {
@@ -24,7 +26,8 @@ data class StockPrice(
                 0.0f,
                 0,
                 "",
-                ""
+                "",
+                0L
             )
         }
     }

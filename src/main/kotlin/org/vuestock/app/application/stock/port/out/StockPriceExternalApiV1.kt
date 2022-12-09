@@ -29,7 +29,7 @@ class StockPriceExternalApiV1(
                 "FID_COND_MRKT_DIV_CODE=J&" +
                 "FID_INPUT_ISCD=$stockCode&" +
                 "FID_INPUT_HOUR_1=$time&" +
-                "FID_PW_DATA_INCU_YN=N&" +
+                "FID_PW_DATA_INCU_YN=Y&" +
                 "FID_ETC_CLS_CODE="
         headers["authorization"] = "Bearer ${kisApiHeader.accessToken}"
         headers["appkey"] = kisApiHeader.appKey

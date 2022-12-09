@@ -12,7 +12,7 @@ import org.vuestock.app.application.stock.port.out.StockPriceExternalApiV1
     RestTemplate::class,
     StockAuthorizationResolverImpl::class,
     StockHttpAuthenticator::class,
-    StockCurrentPriceUseCase::class,
+    StockCurrentCurrentPriceUseCase::class,
     StockPriceExternalApiV1::class,
 ])
 internal class StockCurrentPriceUseCaseTest(
