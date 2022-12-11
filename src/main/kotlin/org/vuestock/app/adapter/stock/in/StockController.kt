@@ -23,7 +23,7 @@ class StockController constructor(
 
     @GetMapping
     fun getCurrentStockPrice(@RequestParam("stockCode") stockCode: String): CommonResponse<StockPrice> {
-        val stockPrice = stockCurrentPricePort.getCurrentPrice(stockCode)
+        val stockPrice = stockCurrentPricePort.getCurrentPrice(stockCode, true)
         if (stockPrice.previousDaySign == StockSign.None) {
             return CommonResponse(
                 "현재 주가를 알 수 없습니다",
@@ -51,12 +51,12 @@ class StockController constructor(
                 StockDistributionResponse(stockDistribution, 0L)
             )
         }
-        val lastViewTimeMills =
-            stockDistribution.distributions[stockDistribution.distributions.size - 1].timeMills
+        // 마지막에 조회된 데이터 시간
+        val lastViewTimeMills = stockDistribution.distributions[0].timeMills!! - (60 * 1000)
         return CommonResponse(
             "분봉 데이터 조회에 성공하였습니다",
             "200",
-            StockDistributionResponse(stockDistribution, lastViewTimeMills!!)
+            StockDistributionResponse(stockDistribution, lastViewTimeMills)
         )
     }
 }

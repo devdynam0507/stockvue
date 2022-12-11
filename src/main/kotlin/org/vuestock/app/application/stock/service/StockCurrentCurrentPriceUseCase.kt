@@ -9,6 +9,7 @@ import org.vuestock.app.application.stock.port.`in`.StockCurrentPricePort
 import org.vuestock.app.application.stock.port.`in`.StockCurrentPriceParser
 import org.vuestock.app.application.stock.port.`in`.dto.StockPrice
 import org.vuestock.app.application.stock.type.StockSign
+import org.vuestock.app.infrastructure.common.StockUtils
 import java.time.LocalDateTime
 
 @Service
@@ -19,7 +20,10 @@ class StockCurrentCurrentPriceUseCase(
     private val distributionTrId: String
 ) : StockCurrentPricePort, StockCurrentPriceParser {
 
-    override fun getCurrentPrice(stockCode: String): StockPrice {
+    override fun getCurrentPrice(stockCode: String, offHourExclude: Boolean): StockPrice {
+        if (offHourExclude && StockUtils.isOffHours(LocalDateTime.now())) {
+            return StockPrice.empty()
+        }
         val authInfo = stockAuthorizationResolverImpl.getAuthorizationInfo()
         val kisApiHeader = KisApiHeader.from(authInfo!!, distributionTrId)
         val bodyJson = stockDistributionExternal.requestDistributions(kisApiHeader, stockCode, LocalDateTime.now())

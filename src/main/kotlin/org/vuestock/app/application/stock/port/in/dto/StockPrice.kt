@@ -24,7 +24,7 @@ data class StockPrice(
                 0,
                 StockSign.None,
                 0.0f,
-                0,
+                -1,
                 "",
                 "",
                 0L
