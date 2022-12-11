@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.vuestock.app.adapter.stock.out.StockDistributionExternal
 import org.vuestock.app.adapter.stock.out.command.KisApiHeader
+import org.vuestock.app.infrastructure.logger.logger
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -17,6 +18,7 @@ class StockPriceExternalApiV1(
     private val endpoint: String,
     private val format: DateTimeFormatter? = DateTimeFormatter.ofPattern("HHmmss")
 ) : StockDistributionExternal {
+    val log = logger<StockPriceExternalApiV1>()
 
     override fun requestDistributions(
         kisApiHeader: KisApiHeader,
@@ -45,6 +47,7 @@ class StockPriceExternalApiV1(
             return response.body.orEmpty()
         }
         catch (e: Exception) {
+            log.error("KIS Developers 분봉 데이터 얻어오기 API 에러", e)
             return emptyMap
         }
     }

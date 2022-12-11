@@ -21,7 +21,7 @@ internal class StockCurrentPriceUseCaseTest(
 
     @Test
     fun `현재 삼성전자 주가 정보를 잘 얻어오는지 테스트`() {
-        val stock = stockCurrentPricePort.getCurrentPrice("005930")
+        val stock = stockCurrentPricePort.getCurrentPrice("005930", false)
         stock.currentPrice shouldBeGreaterThan 0
     }
 }
