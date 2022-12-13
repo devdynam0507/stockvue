@@ -11,59 +11,43 @@ plugins {
     idea
 }
 
-group = "org.vuestock"
-version = "1.0-SNAPSHOT"
+allprojects {
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+    apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
 
-repositories {
-    mavenCentral()
-}
+    group = "org.vuestock"
+    version = "1.0-SNAPSHOT"
 
-dependencies {
-    testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    repositories {
+        mavenCentral()
+    }
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    dependencies {
+        testImplementation(kotlin("test"))
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    implementation("org.springframework.boot:spring-boot-starter-websocket")
-    testImplementation("org.springframework.boot:spring-boot-starter-websocket")
+        testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
+        testImplementation("io.kotest:kotest-assertions-core")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+    }
 
-    implementation("org.springframework.boot:spring-boot-starter-batch")
-    implementation("org.springframework.batch.extensions:spring-batch-excel:0.1.1")
-    implementation("org.apache.poi:poi:5.2.2")
-    implementation("org.apache.poi:poi-ooxml:5.2.2")
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 
-    implementation("mysql:mysql-connector-java")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-    implementation("com.auth0:java-jwt:4.2.1")
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
 
-    implementation("org.apache.httpcomponents:httpclient")
-    testImplementation("org.apache.httpcomponents:httpclient")
-
-    testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
-    testImplementation("io.kotest:kotest-assertions-core")
-    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
-
-    implementation("org.springframework.boot:spring-boot-starter-cache")
-    implementation("com.github.ben-manes.caffeine:caffeine")
-
-    kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "11"
+        }
     }
 }
