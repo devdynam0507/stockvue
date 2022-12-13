@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  config:
+    import: 'optional:configserver:'
+  application:
+    name: stockvue
+  cloud:
+    config:
+      uri: http://stockvue-config:8888
