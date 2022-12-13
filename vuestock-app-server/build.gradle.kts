@@ -1,5 +1,11 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.4")
+    }
+}
+
 dependencies {
     implementation(project(":vuestock-common"))
     implementation(project(":vuestock-cache"))
@@ -20,6 +26,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("com.auth0:java-jwt:4.2.1")
+
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
 }
 
 tasks.withType<Jar> {
