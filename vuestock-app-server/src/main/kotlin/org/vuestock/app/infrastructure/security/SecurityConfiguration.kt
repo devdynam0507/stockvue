@@ -26,7 +26,7 @@ class SecurityConfiguration @Autowired constructor(
         val corsConfiguration = CorsConfiguration()
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
 
-        corsConfiguration.allowedOrigins = listOf("https://master.d261ex3d85zwvh.amplifyapp.com")
+        corsConfiguration.allowedOrigins = listOf("*")
         corsConfiguration.allowedMethods = listOf("*")
         corsConfiguration.allowedHeaders = listOf("*")
         corsConfiguration.allowCredentials = true
@@ -42,6 +42,11 @@ class SecurityConfiguration @Autowired constructor(
             cors { corsConfigurationSource() }
             logout { disable() }
             httpBasic { disable() }
+            headers {
+                frameOptions {
+                    sameOrigin
+                }
+            }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             authorizeHttpRequests {
                 authorize(AntPathRequestMatcher("/**"), permitAll)
