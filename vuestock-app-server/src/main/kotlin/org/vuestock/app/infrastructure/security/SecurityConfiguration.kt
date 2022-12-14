@@ -44,6 +44,7 @@ class SecurityConfiguration @Autowired constructor(
             httpBasic { disable() }
             headers {
                 frameOptions {
+                    disable()
                     sameOrigin = true
                 }
             }
