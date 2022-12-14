@@ -44,7 +44,7 @@ class SecurityConfiguration @Autowired constructor(
             httpBasic { disable() }
             headers {
                 frameOptions {
-                    sameOrigin
+                    disable()
                 }
             }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
