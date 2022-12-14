@@ -44,7 +44,6 @@ class SecurityConfiguration @Autowired constructor(
             httpBasic { disable() }
             headers {
                 frameOptions {
-                    defaultsDisabled = true
                     disable()
                 }
             }
