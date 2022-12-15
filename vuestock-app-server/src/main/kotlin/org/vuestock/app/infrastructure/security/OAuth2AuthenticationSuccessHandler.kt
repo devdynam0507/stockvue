@@ -28,6 +28,6 @@ class OAuth2AuthenticationSuccessHandler(
         tokenCookie.maxAge = 60 * 60 * 24
 
         response!!.addCookie(tokenCookie)
-        response.sendRedirect("http://localhost:5050")
+        response.sendRedirect("https://master.d261ex3d85zwvh.amplifyapp.com/")
     }
 }
