@@ -23,6 +23,7 @@ class OAuth2AuthenticationSuccessHandler(
         val jwt = jwtProvider.encrypt("email", email, 1000 * 60 * 60 * 10)
         val tokenCookie = Cookie("authenticationToken", jwt)
         tokenCookie.path = "/"
+        tokenCookie.domain = ".stockvue.kr"
         tokenCookie.isHttpOnly = true
         tokenCookie.maxAge = 60 * 60 * 24
 
