@@ -26,7 +26,7 @@ class SecurityConfiguration @Autowired constructor(
         val corsConfiguration = CorsConfiguration()
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
 
-        corsConfiguration.allowedOrigins = listOf("http://localhost:5050")
+        corsConfiguration.allowedOrigins = listOf("http://localhost:5050", "https://master.d261ex3d85zwvh.amplifyapp.com/")
         corsConfiguration.allowedMethods = listOf("*")
         corsConfiguration.allowedHeaders = listOf("*")
         corsConfiguration.allowCredentials = true
