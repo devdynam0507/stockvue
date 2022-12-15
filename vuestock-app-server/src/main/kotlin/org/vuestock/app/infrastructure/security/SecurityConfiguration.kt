@@ -42,11 +42,6 @@ class SecurityConfiguration @Autowired constructor(
             cors { corsConfigurationSource() }
             logout { disable() }
             httpBasic { disable() }
-            headers {
-                frameOptions {
-                    disable()
-                }
-            }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             authorizeHttpRequests {
                 authorize(AntPathRequestMatcher("/**"), permitAll)
