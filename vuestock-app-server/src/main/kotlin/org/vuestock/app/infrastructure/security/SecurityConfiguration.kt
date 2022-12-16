@@ -1,6 +1,7 @@
 package org.vuestock.app.infrastructure.security
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -19,14 +20,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfiguration @Autowired constructor(
     private val oAuth2Service: OAuth2Service,
-    private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler
+    private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler,
+    @Value("\${stock.origins}")
+    private val origins: Array<String>
 ) {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
         val urlBasedCorsConfigurationSource = UrlBasedCorsConfigurationSource()
 
-        corsConfiguration.allowedOrigins = listOf("http://localhost:5050", "https://master.d261ex3d85zwvh.amplifyapp.com")
+        corsConfiguration.allowedOrigins = origins.toList()
         corsConfiguration.allowedMethods = listOf("*")
         corsConfiguration.allowedHeaders = listOf("*")
         corsConfiguration.allowCredentials = true

@@ -1,5 +1,6 @@
 package org.vuestock.app.infrastructure.security
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServletResponse
 
 @Service
 class OAuth2AuthenticationSuccessHandler(
-    private val jwtProvider: JwtProvider
+    private val jwtProvider: JwtProvider,
+    @Value("\${stock.cookie.redirect}")
+    private val redirectUrl: String,
+    @Value("\${stock.cookie.domain}")
+    private val cookieDomain: String?
 ) : SimpleUrlAuthenticationSuccessHandler() {
 
     override fun onAuthenticationSuccess(
@@ -23,11 +28,13 @@ class OAuth2AuthenticationSuccessHandler(
         val jwt = jwtProvider.encrypt("email", email, 1000 * 60 * 60 * 10)
         val tokenCookie = Cookie("authenticationToken", jwt)
         tokenCookie.path = "/"
-        tokenCookie.domain = "d261ex3d85zwvh.amplifyapp.com"
+        if (cookieDomain != null) {
+            tokenCookie.domain = cookieDomain
+        }
         tokenCookie.isHttpOnly = true
         tokenCookie.maxAge = 60 * 60 * 24
 
         response!!.addCookie(tokenCookie)
-        response.sendRedirect("https://master.d261ex3d85zwvh.amplifyapp.com/")
+        response.sendRedirect(redirectUrl)
     }
 }
